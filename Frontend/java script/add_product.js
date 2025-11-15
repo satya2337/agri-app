@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    const API_BASE = "https://agri-app-production.up.railway.app";
+
     const form = document.getElementById("productForm");
     const notification = document.getElementById("responseMsg");
 
@@ -37,7 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
         data.append("image", imageFile);
 
         try {
-            const res = await fetch("http://localhost:5000/api/products/add", {
+            // FETCH to LIVE BACKEND
+            const res = await fetch(`${API_BASE}/api/products/add`, {
                 method: "POST",
                 body: data
             });

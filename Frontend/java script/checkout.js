@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", loadCart);
 
-async function loadCart() {
+const API_BASE = "https://agri-app-production.up.railway.app";
 
+// ------------------- LOAD CART -------------------
+async function loadCart() {
     const buyer_id = localStorage.getItem("buyer_id");
 
     if (!buyer_id) {
@@ -11,7 +13,7 @@ async function loadCart() {
     }
 
     try {
-        const res = await fetch(`http://localhost:5000/api/cart/${buyer_id}`);
+        const res = await fetch(`${API_BASE}/api/cart/${buyer_id}`);
         const cart = await res.json();
 
         const container = document.getElementById("cartItems");
@@ -21,7 +23,6 @@ async function loadCart() {
         let total = 0;
 
         cart.forEach(item => {
-
             const subtotal = item.price * item.quantity;
             total += subtotal;
 
@@ -43,18 +44,19 @@ async function loadCart() {
             `;
         });
 
-        totalAmount.textContent = total;
+        totalAmount.textContent = `₹${total}`;
+        localStorage.setItem("checkout_total", total);
 
     } catch (err) {
         console.log("Error:", err);
     }
 }
 
-
+// ------------------- REMOVE ITEM -------------------
 async function removeItem(cart_id) {
     if (!confirm("Remove this item?")) return;
 
-    const res = await fetch(`http://localhost:5000/api/cart/remove/${cart_id}`, {
+    const res = await fetch(`${API_BASE}/api/cart/remove/${cart_id}`, {
         method: "DELETE"
     });
 
@@ -63,3 +65,40 @@ async function removeItem(cart_id) {
 
     loadCart(); // refresh cart
 }
+
+// ------------------- PLACE ORDER -------------------
+async function placeOrder() {
+    const buyer_id = localStorage.getItem("buyer_id");
+    const total = localStorage.getItem("checkout_total");
+
+    if (!buyer_id || !total) {
+        return alert("Something went wrong! Please reload.");
+    }
+
+    try {
+        const res = await fetch(`${API_BASE}/api/checkout/place-order`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                buyer_id,
+                total
+            })
+        });
+
+        const data = await res.json();
+        if (!data.success) {
+            return alert("Error: " + data.error);
+        }
+
+        alert("Order placed successfully!");
+
+        window.location.href = "transaction.html";
+
+    } catch (err) {
+        console.log("Order error:", err);
+        alert("Server error placing order!");
+    }
+}
+
+// Button Listener
+document.getElementById("placeOrderBtn").addEventListener("click", placeOrder);

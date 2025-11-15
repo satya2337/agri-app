@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    const API_BASE = "https://agri-app-production.up.railway.app";
+
     const loginForm = document.getElementById("loginForm");
     const notification = document.getElementById("notification");
     const emailInput = document.getElementById("email");
@@ -16,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            const res = await fetch("http://localhost:5000/api/auth/login", {
+            const res = await fetch(`${API_BASE}/api/auth/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
@@ -33,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return show("This login is for FARMERS only!");
             }
 
-            // SAVE COMPLETE USER OBJECT (IMPORTANT)
+            // SAVE USER OBJECT
             localStorage.setItem("user", JSON.stringify(data.user));
             localStorage.setItem("farmer_id", data.user.id);
 

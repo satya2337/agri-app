@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+    const API_BASE = "https://agri-app-production.up.railway.app";
+
     const form = document.getElementById("signupForm");
     const nameInput = document.getElementById("name");
     const contactInput = document.getElementById("contact");
@@ -14,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // FORM SUBMISSION
     form.addEventListener("submit", function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
 
         const name = nameInput.value.trim();
         const contact = contactInput.value.trim();
@@ -38,8 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
             return displayNotification("Password must be at least 6 characters.");
         }
 
-        // BACKEND REQUEST
-        fetch("http://localhost:5000/api/auth/signup", {
+        // BACKEND REQUEST (LIVE URL)
+        fetch(`${API_BASE}/api/auth/signup`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -47,17 +50,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 phone: contact,
                 email: email,
                 password: password,
-                role: "buyer"     // VERY IMPORTANT
+                role: "buyer" // IMPORTANT
             })
         })
         .then(res => res.json())
         .then(data => {
             if (data.success) {
                 displayNotification("Signup Successful! Redirecting...", true);
-                
+
                 setTimeout(() => {
                     window.location.href = "buyer_login.html";
                 }, 1200);
+
             } else {
                 displayNotification("Error: " + data.error);
             }
@@ -76,6 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
         notification.textContent = message;
         notification.style.display = "block";
         notification.style.backgroundColor = success ? "#4CAF50" : "#f44336";
+
         setTimeout(() => notification.style.display = "none", 3000);
     }
 });

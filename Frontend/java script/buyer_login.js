@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    const API_BASE = "https://agri-app-production.up.railway.app";
+
     const form = document.getElementById("loginForm");
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
@@ -26,8 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            // BACKEND LOGIN API
-            const res = await fetch("http://localhost:5000/api/auth/login", {
+            // BACKEND LOGIN API (LIVE)
+            const res = await fetch(`${API_BASE}/api/auth/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
@@ -44,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return show("Access denied! This login is for BUYERS only.");
             }
 
-            // SAVE FULL USER DATA EXACTLY AS BACKEND SENDS
+            // SAVE USER DATA
             localStorage.setItem("user", JSON.stringify(data.user));
             localStorage.setItem("buyer_id", data.user.id);
 

@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+    const API_BASE = "https://agri-app-production.up.railway.app";
+
     const form = document.getElementById("signupForm");
     const nameInput = document.getElementById("name");
     const contactInput = document.getElementById("contact");
@@ -9,12 +12,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const showPasswordCheckbox = document.getElementById("showPassword");
     const notification = document.getElementById("notification");
 
+    // SHOW / HIDE PASSWORD
     showPasswordCheckbox.addEventListener("change", function () {
         passwordInput.type = this.checked ? "text" : "password";
     });
 
+    // FORM SUBMIT
     form.addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent normal form submit
+        event.preventDefault();
 
         const name = nameInput.value.trim();
         const contact = contactInput.value.trim();
@@ -48,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return displayNotification("Password must be at least 8 characters long and include letters and special characters.");
         }
 
-        // ----------- BACKEND REQUEST -------------
+        // BACKEND REQUEST (LIVE URL)
         const signupData = {
             name: name,
             phone: contact,
@@ -57,11 +62,9 @@ document.addEventListener("DOMContentLoaded", function () {
             password: password
         };
 
-        fetch("http://localhost:5000/api/auth/signup", {
+        fetch(`${API_BASE}/api/auth/signup`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(signupData)
         })
         .then(res => res.json())
@@ -72,7 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 setTimeout(() => {
                     window.location.href = "farmer_login.html";
                 }, 1500);
-
             } else {
                 displayNotification("Error: " + data.error);
             }
@@ -91,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
         notification.textContent = message;
         notification.style.display = "block";
         notification.style.backgroundColor = success ? "#4CAF50" : "#f44336";
+
         setTimeout(() => notification.style.display = "none", 3000);
     }
 });
