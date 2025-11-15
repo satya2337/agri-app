@@ -52,26 +52,25 @@
     </div>
 
     <script>
+        const API_BASE = "https://agri-app-production.up.railway.app";
+
         document.addEventListener("DOMContentLoaded", async () => {
 
-            // READ BUYER DATA FROM LOCAL STORAGE
             const buyer_id = localStorage.getItem("buyer_id");
             const buyer_name = localStorage.getItem("buyer_name");
             const buyer_email = localStorage.getItem("buyer_email");
 
-            // IF NOT LOGGED IN → REDIRECT
             if (!buyer_id) {
                 window.location.href = "buyer_login.html";
                 return;
             }
 
-            // SET BUYER DETAILS
             document.getElementById("userName").textContent = buyer_name;
             document.getElementById("userEmail").textContent = buyer_email;
 
-            // FETCH CART COUNT
+            // FETCH CART COUNT FROM LIVE API
             try {
-                const res = await fetch(`http://localhost:5000/api/cart/${buyer_id}`);
+                const res = await fetch(`${API_BASE}/api/cart/${buyer_id}`);
                 const cartData = await res.json();
 
                 document.getElementById("cartCount").textContent = cartData.length;
@@ -82,9 +81,7 @@
 
             // LOGOUT
             document.getElementById("logoutBtn").onclick = () => {
-                localStorage.removeItem("buyer_id");
-                localStorage.removeItem("buyer_name");
-                localStorage.removeItem("buyer_email");
+                localStorage.clear();
                 window.location.href = "buyer_login.html";
             };
         });

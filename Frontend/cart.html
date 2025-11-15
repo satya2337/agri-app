@@ -32,7 +32,7 @@
 
         <h2 class="text-center mb-4">🛒 Your Cart</h2>
 
-        <!-- CART ITEMS WILL LOAD HERE -->
+        <!-- CART ITEMS -->
         <div id="cart-container"></div>
 
         <!-- TOTAL AMOUNT -->
@@ -45,6 +45,7 @@
     </div>
 
     <script>
+        const API_BASE = "https://agri-app-production.up.railway.app";
         const buyer_id = localStorage.getItem("buyer_id");
 
         if (!buyer_id) {
@@ -53,7 +54,7 @@
         }
 
         async function loadCart() {
-            const res = await fetch(`http://localhost:5000/api/cart/${buyer_id}`);
+            const res = await fetch(`${API_BASE}/api/cart/${buyer_id}`);
             const cart = await res.json();
 
             const container = document.getElementById("cart-container");
@@ -82,9 +83,9 @@
             document.getElementById("totalBox").innerHTML = `Total: ₹${total}`;
         }
 
-        // REMOVE item
+        // REMOVE cart item
         function removeItem(cart_id) {
-            fetch(`http://localhost:5000/api/cart/remove/${cart_id}`, {
+            fetch(`${API_BASE}/api/cart/remove/${cart_id}`, {
                 method: "DELETE"
             })
             .then(res => res.json())
@@ -96,7 +97,7 @@
 
         // CHECKOUT
         function checkout() {
-            fetch("http://localhost:5000/api/checkout", {
+            fetch(`${API_BASE}/api/checkout`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ buyer_id })

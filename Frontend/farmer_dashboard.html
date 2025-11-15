@@ -61,9 +61,10 @@
 
     <!-- DASHBOARD SCRIPT -->
     <script>
+        const API_BASE = "https://agri-app-production.up.railway.app";
+
         document.addEventListener("DOMContentLoaded", async () => {
 
-            // 1️⃣ CHECK FARMER LOGIN
             const user = JSON.parse(localStorage.getItem("user"));
 
             if (!user || user.role !== "farmer") {
@@ -71,13 +72,11 @@
                 return;
             }
 
-            // 2️⃣ SET FARMER DETAILS
             document.getElementById("farmerName").textContent = user.name;
             document.getElementById("farmerEmail").textContent = user.email;
 
-            // 3️⃣ FETCH FARMER PRODUCTS
             try {
-                const res = await fetch(`http://localhost:5000/api/products/farmer/${user.id}`);
+                const res = await fetch(`${API_BASE}/api/products/farmer/${user.id}`);
                 const result = await res.json();
 
                 if (!result.success) {
@@ -87,10 +86,8 @@
 
                 const products = result.products;
 
-                // SET PRODUCT COUNT
                 document.getElementById("productCount").textContent = products.length;
 
-                // SHOW PRODUCT CARDS
                 const container = document.getElementById("farmerProducts");
                 container.innerHTML = "";
 
@@ -109,7 +106,6 @@
                 console.log("Error loading farmer products:", err);
             }
 
-            // 4️⃣ LOGOUT
             document.getElementById("logoutBtn").onclick = () => {
                 localStorage.removeItem("user");
                 window.location.href = "farmer_login.html";

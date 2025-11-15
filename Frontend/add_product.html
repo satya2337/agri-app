@@ -11,7 +11,6 @@
     <div class="container">
         <h2>Add New Product</h2>
 
-        <!-- REAL IMAGE UPLOAD ENABLED -->
         <form id="productForm" enctype="multipart/form-data">
 
             <label>Crop Title:</label>
@@ -37,6 +36,8 @@
     </div>
 
     <script>
+        const API_BASE = "https://agri-app-production.up.railway.app";
+
         const form = document.getElementById("productForm");
 
         form.addEventListener("submit", async (e) => {
@@ -49,19 +50,18 @@
                 return;
             }
 
-            // ---- FORM DATA TO SEND IMAGE ----
             const data = new FormData();
             data.append("farmer_id", farmer_id);
             data.append("title", document.getElementById("title").value);
             data.append("description", document.getElementById("description").value);
             data.append("price", document.getElementById("price").value);
             data.append("quantity", document.getElementById("quantity").value);
-            data.append("image", document.getElementById("imageFile").files[0]); // IMAGE FILE
+            data.append("image", document.getElementById("imageFile").files[0]);
 
             try {
-                const res = await fetch("http://localhost:5000/api/products/add", {
+                const res = await fetch(`${API_BASE}/api/products/add`, {
                     method: "POST",
-                    body: data  // NO HEADERS! AUTOMATICALLY SET BY BROWSER
+                    body: data
                 });
 
                 const result = await res.json();

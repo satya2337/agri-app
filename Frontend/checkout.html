@@ -26,6 +26,8 @@
 
     <!-- Checkout JS -->
     <script>
+        const API_BASE = "https://agri-app-production.up.railway.app";
+
         document.addEventListener("DOMContentLoaded", () => {
 
             const buyer_id = localStorage.getItem("buyer_id");
@@ -40,7 +42,7 @@
             const totalAmount = document.getElementById("totalAmount");
 
             // ===== FETCH CART ITEMS FROM BACKEND =====
-            fetch(`http://localhost:5000/api/cart/${buyer_id}`)
+            fetch(`${API_BASE}/api/cart/${buyer_id}`)
                 .then(res => res.json())
                 .then(cart => {
 
@@ -72,7 +74,7 @@
         // ===== REMOVE ITEM FROM CART =====
         function removeItem(id) {
 
-            fetch(`http://localhost:5000/api/cart/remove/${id}`, {
+            fetch(`${API_BASE}/api/cart/remove/${id}`, {
                 method: "DELETE"
             })
             .then(res => res.json())
