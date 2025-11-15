@@ -5,7 +5,12 @@ const multer = require("multer");
 const path = require("path");
 
 // =====================================
-//   IMAGE STORAGE CONFIGURATION
+//   SET RAILWAY BASE URL
+// =====================================
+const BASE_URL = process.env.BASE_URL || "https://agri-app-production.up.railway.app";
+
+// =====================================
+//   IMAGE STORAGE
 // =====================================
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -31,15 +36,10 @@ const upload = multer({
 });
 
 // =====================================
-//       ADD PRODUCT (with image)
+//       ADD PRODUCT
 // =====================================
 router.post("/add", upload.single("image"), (req, res) => {
-
     const { farmer_id, title, description, price, quantity } = req.body;
-
-    if (!farmer_id || !title || !description || !price || !quantity) {
-        return res.json({ success: false, error: "All fields are required!" });
-    }
 
     if (!req.file) {
         return res.json({ success: false, error: "Product image required!" });
@@ -54,7 +54,6 @@ router.post("/add", upload.single("image"), (req, res) => {
 
     db.query(sql, [farmer_id, title, description, price, quantity, image], (err, result) => {
         if (err) {
-            console.log("SQL ERROR:", err);
             return res.json({ success: false, error: err.sqlMessage });
         }
 
@@ -69,50 +68,44 @@ router.post("/add", upload.single("image"), (req, res) => {
                 price,
                 quantity,
                 image,
-                image_url: `http://localhost:5000/uploads/${image}`
+                image_url: `${BASE_URL}/uploads/${image}`
             }
         });
     });
 });
 
 // =====================================
-//         GET ALL PRODUCTS
+//   GET ALL PRODUCTS
 // =====================================
 router.get("/", (req, res) => {
     const sql = "SELECT * FROM products ORDER BY id DESC";
 
     db.query(sql, (err, rows) => {
-        if (err) {
-            console.log("SQL ERROR:", err);
-            return res.json({ success: false, error: err.sqlMessage });
-        }
+        if (err) return res.json({ success: false, error: err.sqlMessage });
 
         const products = rows.map(p => ({
             ...p,
-            image_url: `http://localhost:5000/uploads/${p.image}`
+            image_url: `${BASE_URL}/uploads/${p.image}`
         }));
 
         res.json({ success: true, products });
     });
 });
 
-// ====================================================
-//     GET PRODUCTS OF A SPECIFIC FARMER
-// ====================================================
+// =====================================
+//   GET PRODUCTS OF A FARMER
+// =====================================
 router.get("/farmer/:farmer_id", (req, res) => {
     const farmer_id = req.params.farmer_id;
 
     const sql = "SELECT * FROM products WHERE farmer_id = ? ORDER BY id DESC";
 
     db.query(sql, [farmer_id], (err, rows) => {
-        if (err) {
-            console.log("SQL ERROR:", err);
-            return res.json({ success: false, error: err.sqlMessage });
-        }
+        if (err) return res.json({ success: false, error: err.sqlMessage });
 
         const products = rows.map(p => ({
             ...p,
-            image_url: `http://localhost:5000/uploads/${p.image}`
+            image_url: `${BASE_URL}/uploads/${p.image}`
         }));
 
         res.json({ success: true, products });
