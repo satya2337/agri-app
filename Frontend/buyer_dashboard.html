@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Dashboard - Contract Farming</title>
+    <link rel="stylesheet" href="css/Dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Buyer Panel</h2>
+            <ul>
+                <li><a href="buyer_dashboard.html" class="active">Overview</a></li>
+                <li><a href="buyer_profile.html">Profile</a></li>
+                <li><a href="checkout.html">My Cart</a></li>
+                <li><a href="#" id="logoutBtn" class="logout">Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <section class="main-content">
+            <header>
+                <h1>Welcome, <span id="userName"></span></h1>
+                <p>Email: <span id="userEmail"></span></p>
+                <p>Your buyer dashboard overview.</p>
+            </header>
+
+            <div class="overview">
+
+                <div class="overview-item">
+                    <h3>Items in Cart</h3>
+                    <p id="cartCount">0</p>
+                </div>
+
+                <div class="overview-item">
+                    <h3>Total Orders</h3>
+                    <p>0</p>
+                </div>
+
+                <div class="overview-item">
+                    <h3>Pending Deliveries</h3>
+                    <p>0</p>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+
+            // READ BUYER DATA FROM LOCAL STORAGE
+            const buyer_id = localStorage.getItem("buyer_id");
+            const buyer_name = localStorage.getItem("buyer_name");
+            const buyer_email = localStorage.getItem("buyer_email");
+
+            // IF NOT LOGGED IN → REDIRECT
+            if (!buyer_id) {
+                window.location.href = "buyer_login.html";
+                return;
+            }
+
+            // SET BUYER DETAILS
+            document.getElementById("userName").textContent = buyer_name;
+            document.getElementById("userEmail").textContent = buyer_email;
+
+            // FETCH CART COUNT
+            try {
+                const res = await fetch(`http://localhost:5000/api/cart/${buyer_id}`);
+                const cartData = await res.json();
+
+                document.getElementById("cartCount").textContent = cartData.length;
+
+            } catch (err) {
+                console.log("Error fetching cart:", err);
+            }
+
+            // LOGOUT
+            document.getElementById("logoutBtn").onclick = () => {
+                localStorage.removeItem("buyer_id");
+                localStorage.removeItem("buyer_name");
+                localStorage.removeItem("buyer_email");
+                window.location.href = "buyer_login.html";
+            };
+        });
+    </script>
+
+</body>
+</html>

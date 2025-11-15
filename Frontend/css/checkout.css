@@ -1,0 +1,109 @@
+/* General Page Styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f4f7f9;
+}
+
+/* Container */
+.checkout-container {
+    width: 60%;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* Heading */
+.checkout-container h1 {
+    text-align: center;
+    color: #2d6a4f;
+    margin-bottom: 30px;
+}
+
+/* Individual Cart Item */
+.cart-item {
+    background: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: 0.3s ease-in-out;
+}
+
+.cart-item:hover {
+    transform: translateY(-3px);
+}
+
+/* Inside cart item */
+.cart-item h3 {
+    margin: 0;
+    color: #1b4332;
+    font-size: 22px;
+}
+
+.cart-item p {
+    margin: 6px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Remove Button */
+.removeBtn {
+    background: #e63946;
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    margin-top: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.removeBtn:hover {
+    background: #b41d29;
+}
+
+/* Total Box */
+.total-box {
+    background: #ffffff;
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Total text */
+.total-box h2 {
+    font-size: 24px;
+    color: #1b4332;
+    margin-bottom: 20px;
+}
+
+/* Checkout button */
+#checkoutBtn {
+    width: 100%;
+    padding: 15px;
+    background: #2d6a4f;
+    color: white;
+    font-size: 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#checkoutBtn:hover {
+    background: #1b4332;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .checkout-container {
+        width: 90%;
+    }
+    #checkoutBtn {
+        font-size: 16px;
+        padding: 12px;
+    }
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Login</title>
+
+    <link href="css/farmer_login.css" rel="stylesheet">
+    <script src="java script/farmer_login.js" defer></script>
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">
+            <h1>Contract Farming</h1>
+        </div>
+
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="farmer_signup.html">Sign Up</a></li>
+                <li><a href="farmer_login.html" class="active">Login</a></li>
+                <li><a href="index.html">Marketplace</a></li>
+                <li><a href="farmer_dashboard.html">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="main-content">
+
+        <div id="notification" class="notification"></div>
+
+        <form id="loginForm">
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+                <label><input type="checkbox" id="showPassword"> Show Password</label>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p>Don't have an account?  
+            <a href="farmer_signup.html">Sign up here</a>
+        </p>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-bottom">
+            <p>Contract Farming Marketplace © 2025 | All Rights Reserved</p>
+        </div>
+    </footer>
+
+</body>
+</html>

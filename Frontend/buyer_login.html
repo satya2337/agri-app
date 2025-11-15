@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Login</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/buyer_login.css">
+
+    <!-- JS -->
+    <script src="java script/buyer_login.js" defer></script>
+
+</head>
+<body>
+
+    <header>
+        <h1>Buyer Login</h1>
+        <div id="notification" class="notification"></div>
+    </header>
+
+    <main>
+        <form id="loginForm">
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    placeholder="Enter your password"
+                    required
+                >
+                <br>
+                <input type="checkbox" id="showPassword"> Show Password
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p>Don't have an account? 
+            <a href="buyer_signup.html">Sign up here</a>
+        </p>
+    </main>
+
+    <footer>
+        <p>Contract Farming Marketplace © 2025 | All Rights Reserved</p>
+    </footer>
+
+</body>
+</html>

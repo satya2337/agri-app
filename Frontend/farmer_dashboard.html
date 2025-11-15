@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Dashboard - Contract Farming</title>
+
+    <link rel="stylesheet" href="css/Dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Farmer Panel</h2>
+            <ul>
+                <li><a class="active" href="farmer_dashboard.html">Overview</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="add_product.html">Add Product</a></li>
+                <li><a href="#" id="logoutBtn" class="logout">Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <section class="main-content">
+            <header>
+                <h1>Welcome, <span id="farmerName"></span></h1>
+                <p>Email: <span id="farmerEmail"></span></p>
+                <p>Your farmer dashboard overview.</p>
+            </header>
+
+            <div class="overview">
+
+                <div class="overview-item">
+                    <h3>Total Products</h3>
+                    <p id="productCount">0</p>
+                </div>
+
+                <div class="overview-item">
+                    <h3>Total Contracts</h3>
+                    <p>0</p>
+                </div>
+
+                <div class="overview-item">
+                    <h3>Pending Orders</h3>
+                    <p>0</p>
+                </div>
+
+            </div>
+
+            <h2 style="margin-top: 30px;">Your Products</h2>
+
+            <div id="farmerProducts" class="product-list"></div>
+
+        </section>
+
+    </div>
+
+    <!-- DASHBOARD SCRIPT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+
+            // 1️⃣ CHECK FARMER LOGIN
+            const user = JSON.parse(localStorage.getItem("user"));
+
+            if (!user || user.role !== "farmer") {
+                window.location.href = "farmer_login.html";
+                return;
+            }
+
+            // 2️⃣ SET FARMER DETAILS
+            document.getElementById("farmerName").textContent = user.name;
+            document.getElementById("farmerEmail").textContent = user.email;
+
+            // 3️⃣ FETCH FARMER PRODUCTS
+            try {
+                const res = await fetch(`http://localhost:5000/api/products/farmer/${user.id}`);
+                const result = await res.json();
+
+                if (!result.success) {
+                    console.log("Error fetching products:", result.error);
+                    return;
+                }
+
+                const products = result.products;
+
+                // SET PRODUCT COUNT
+                document.getElementById("productCount").textContent = products.length;
+
+                // SHOW PRODUCT CARDS
+                const container = document.getElementById("farmerProducts");
+                container.innerHTML = "";
+
+                products.forEach(p => {
+                    container.innerHTML += `
+                        <div class="product-card">
+                            <img src="${p.image_url}" alt="${p.title}">
+                            <h3>${p.title}</h3>
+                            <p>Price: ₹${p.price}</p>
+                            <p>Qty: ${p.quantity} quintals</p>
+                        </div>
+                    `;
+                });
+
+            } catch (err) {
+                console.log("Error loading farmer products:", err);
+            }
+
+            // 4️⃣ LOGOUT
+            document.getElementById("logoutBtn").onclick = () => {
+                localStorage.removeItem("user");
+                window.location.href = "farmer_login.html";
+            };
+        });
+    </script>
+
+    <style>
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product-card {
+            width: 220px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 140px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .product-card h3 {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+    </style>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+/* Font and global settings */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 50px auto;
+    background: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.profile-header {
+    background-color: #6c63ff;
+    padding: 20px;
+    color: #fff;
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
+    border: 4px solid #fff;
+}
+
+.user-name {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.user-role {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.profile-details {
+    padding: 20px;
+    text-align: left;
+}
+
+.profile-details h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.info {
+    margin-bottom: 15px;
+}
+
+.info label {
+    font-weight: 600;
+    color: #555;
+}
+
+.info input {
+    font-size: 16px;
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #333;
+}
+
+.info input:disabled {
+    background-color: #f9f9f9;
+    color: #888;
+}
+
+.profile-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #eee;
+}
+
+.edit-btn, .logout-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+    background-color: #6c63ff;
+    color: white;
+}
+
+.logout-btn {
+    background-color: #ff5f5f;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #5a52d6;
+}
+
+.logout-btn:hover {
+    background-color: #e05555;
+}

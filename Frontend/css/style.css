@@ -1,0 +1,337 @@
+    /* General Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body, html {
+        font-family: 'Poppins', sans-serif;
+        color: #333;
+        background-color: #f4f4f9;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+        background: linear-gradient(90deg, #007bff, #6610f2);
+        padding: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #fff !important;
+    }
+
+    .nav-link {
+        color: #fff !important;
+        font-weight: 600;
+        padding: 10px 20px;
+        transition: background-color 0.3s ease;
+    }
+
+    .nav-link:hover, .dropdown-item:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+    }
+
+    .nav-item.dropdown .dropdown-menu {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .dropdown-item {
+        color: #333 !important;
+        padding: 10px 20px;
+        font-weight: 500;
+    }
+
+    /* Main Heading */
+    h1 {
+        font-size: 2.5rem;
+        color: #333;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    /* Marketplace Section */
+    .marketplace {
+        padding: 60px 0;
+        background-color: #f4f4f9;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: #fff;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-img-top {
+        border-radius: 10px 10px 0 0;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        color: #007bff;
+        font-weight: bold;
+    }
+
+    .card-text {
+        color: #555;
+    }
+
+    input[type="number"] {
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        font-size: 1rem;
+        padding: 12px;
+        border-radius: 6px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+        font-size: 1rem;
+        padding: 12px;
+        border-radius: 6px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    /* Cart Section */
+    .cart {
+        background-color: #fff;
+        padding: 60px 0;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    .cart h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        color: #333;
+    }
+
+    .list-group-item {
+        font-size: 1rem;
+        padding: 15px 20px;
+    }
+
+    /* Footer Section */
+    footer {
+        background-color: #007bff;
+        color: #fff;
+        padding: 40px 0;
+    }
+
+    footer h5 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        font-weight: bold;
+    }
+
+    footer .team-member {
+        margin-bottom: 1rem;
+    }
+
+    footer p {
+        margin-bottom: 0;
+        font-size: 1rem;
+    }
+
+    footer .team-member h6 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    footer .team-member p {
+        font-size: 0.9rem;
+        color: #f8f9fa;
+    }
+
+    /* Team Member Images */
+    footer .team-member img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .navbar-nav {
+            text-align: center;
+        }
+        
+        .card {
+            margin-bottom: 2rem;
+        }
+        
+        footer {
+            padding: 30px 10px;
+        }
+        
+        footer .team-member {
+            text-align: center;
+        }
+    }
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f8f9fa; /* Light gray background for contrast */
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background-color: #3d9970; /* Dark green for the header */
+        color: #fff;
+    }
+
+    .navbar-brand, .nav-link {
+        color: #fff !important; /* White text for navbar items */
+    }
+
+    .navbar-light .navbar-nav .nav-link:hover {
+        background-color: #2b8a5b; /* Darker green on hover */
+    }
+
+    .marketplace {
+        background-color: #fff; /* White background for the marketplace */
+        padding: 40px 0; /* Added padding for space */
+    }
+
+    .marketplace h1 {
+        color: #3d9970; /* Dark green for headings */
+        margin-bottom: 20px; /* Space below heading */
+    }
+
+    .card {
+        border: 1px solid #e0e0e0; /* Light border for cards */
+        border-radius: 8px; /* Rounded corners */
+        transition: transform 0.2s; /* Smooth transition on hover */
+    }
+
+    .card:hover {
+        transform: scale(1.05); /* Slight zoom on hover */
+    }
+
+    .card-img-top {
+        border-top-left-radius: 8px; /* Rounded corners on top */
+        border-top-right-radius: 8px; /* Rounded corners on top */
+    }
+
+    .card-title {
+        font-size: 1.25rem; /* Slightly larger font size for titles */
+        color: #3d9970; /* Dark green for titles */
+    }
+
+    .card-text {
+        color: #6c757d; /* Gray color for description */
+    }
+
+    .btn-primary {
+        background-color: #3d9970; /* Dark green for buttons */
+        border-color: #3d9970; /* Same color for border */
+    }
+
+    .btn-primary:hover {
+        background-color: #2b8a5b; /* Darker green on button hover */
+        border-color: #2b8a5b; /* Same darker green for border on hover */
+    }
+
+    footer {
+        background-color: #3d9970; /* Dark green for footer */
+        color: #fff; /* White text for footer */
+        padding: 20px 0; /* Added padding for footer */
+    }
+
+    footer h5 {
+        margin-bottom: 20px; /* Space below team heading */
+    }
+
+    .team-member {
+        margin: 10px 0; /* Margin for team members */
+    }
+
+    .team-member img {
+        border-radius: 50%; /* Circular images for team members */
+        width: 80px; /* Fixed width for team member images */
+        height: 80px; /* Fixed height for team member images */
+    }
+
+    .team-member h6 {
+        margin: 10px 0 5px; /* Space above and below names */
+        font-size: 1rem; /* Font size for names */
+        color: #fff; /* White text for names */
+    }
+
+    .team-member p {
+        color: #cfcfcf; /* Lighter gray for roles */
+    }
+
+    @media (max-width: 768px) {
+        .team-member {
+            text-align: center; /* Center align on smaller screens */
+        }
+    }
+    footer {
+        background-color: #343a40; /* Dark gray background for footer */
+        color: #ffffff; /* White text color */
+    }
+
+    footer h5 {
+        font-size: 1.25rem; /* Larger font size for headings */
+        margin-bottom: 10px; /* Space below headings */
+    }
+
+    footer a {
+        color: #ffffff; /* White color for links */
+        text-decoration: none; /* Remove underline */
+    }
+
+    footer a:hover {
+        text-decoration: underline; /* Underline on hover */
+    }
+
+    footer ul {
+        padding-left: 0; /* Remove padding on lists */
+    }
+
+    footer .text-center {
+        margin-top: 20px; /* Space above the copyright text */
+    }
+
+    @media (max-width: 768px) {
+        footer h5 {
+            text-align: center; /* Center align heading on small screens */
+        }
+    }

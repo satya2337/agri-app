@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - Farmer</title>
+    <link rel="stylesheet" href="css/add_product.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Add New Product</h2>
+
+        <!-- REAL IMAGE UPLOAD ENABLED -->
+        <form id="productForm" enctype="multipart/form-data">
+
+            <label>Crop Title:</label>
+            <input type="text" id="title" required>
+
+            <label>Description:</label>
+            <input type="text" id="description" required>
+
+            <label>Price (per quintal):</label>
+            <input type="number" id="price" required>
+
+            <label>Quantity (in quintals):</label>
+            <input type="number" id="quantity" required>
+
+            <label>Select Product Image:</label>
+            <input type="file" id="imageFile" accept="image/*" required>
+
+            <button type="submit">Add Product</button>
+
+        </form>
+
+        <p id="responseMsg"></p>
+    </div>
+
+    <script>
+        const form = document.getElementById("productForm");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const farmer_id = localStorage.getItem("farmer_id");
+
+            if (!farmer_id) {
+                alert("Please login first!");
+                return;
+            }
+
+            // ---- FORM DATA TO SEND IMAGE ----
+            const data = new FormData();
+            data.append("farmer_id", farmer_id);
+            data.append("title", document.getElementById("title").value);
+            data.append("description", document.getElementById("description").value);
+            data.append("price", document.getElementById("price").value);
+            data.append("quantity", document.getElementById("quantity").value);
+            data.append("image", document.getElementById("imageFile").files[0]); // IMAGE FILE
+
+            try {
+                const res = await fetch("http://localhost:5000/api/products/add", {
+                    method: "POST",
+                    body: data  // NO HEADERS! AUTOMATICALLY SET BY BROWSER
+                });
+
+                const result = await res.json();
+
+                if (result.success) {
+                    document.getElementById("responseMsg").style.color = "green";
+                    document.getElementById("responseMsg").innerText = "Product Added Successfully!";
+                    form.reset();
+                } else {
+                    document.getElementById("responseMsg").style.color = "red";
+                    document.getElementById("responseMsg").innerText = "Error: " + result.error;
+                }
+
+            } catch (error) {
+                document.getElementById("responseMsg").style.color = "red";
+                document.getElementById("responseMsg").innerText = "Server Error: " + error;
+            }
+        });
+    </script>
+
+</body>
+</html>

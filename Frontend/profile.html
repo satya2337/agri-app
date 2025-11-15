@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="css/profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Profile Section -->
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="default_profile.png" alt="Profile Picture" class="profile-img">
+            <h1 class="user-name" id="profileName">User Name</h1>
+            <p class="user-role" id="profileRole">Role</p>
+        </div>
+
+        <div class="profile-details">
+            <h2>Profile Details</h2>
+            <form id="profile-form">
+                <div class="info">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" disabled>
+                </div>
+                <div class="info">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" disabled>
+                </div>
+                <div class="info">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" disabled>
+                </div>
+                <div class="info">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" value="Not Provided" disabled>
+                </div>
+            </form>
+        </div>
+
+        <div class="profile-actions">
+            <button id="edit-btn" class="edit-btn">Edit Profile</button>
+            <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+    </div>
+
+    <!-- DYNAMIC JS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // Get logged-in user details
+            const user = JSON.parse(localStorage.getItem("user"));
+
+            // If not logged in → redirect
+            if (!user) {
+                window.location.href = "index.html";
+                return;
+            }
+
+            // Fill Dynamic Values
+            document.getElementById("profileName").textContent = user.name;
+            document.getElementById("profileRole").textContent =
+                "Contract Farming Marketplace - " + user.role.toUpperCase();
+
+            document.getElementById("name").value = user.name;
+            document.getElementById("email").value = user.email;
+            document.getElementById("phone").value = user.phone ? user.phone : "Not Provided";
+
+            // Logout button
+            document.getElementById("logoutBtn").addEventListener("click", () => {
+                localStorage.removeItem("user");
+                window.location.href = "index.html";
+            });
+        });
+    </script>
+
+</body>
+</html>

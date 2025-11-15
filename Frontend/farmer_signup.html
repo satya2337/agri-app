@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Sign Up</title>
+    <link href="css/farmer_signup.css" rel="stylesheet">
+    <script src="java script/farmer_signup.js" defer></script>
+</head>
+<body>
+
+    <header>
+        <h1>Farmer Sign Up</h1>
+        <div id="notification" class="notification"></div>
+    </header>
+
+    <main>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="contact">Contact Number:</label>
+                <input type="text" id="contact" placeholder="10-digit mobile number" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="farmSize">Farm Size (in acres):</label>
+                <input type="number" id="farmSize" placeholder="Enter your farm size" min="1" required>
+            </div>
+            <div class="form-group">
+                <label for="cropType">Crop Type:</label>
+                <select id="cropType" required>
+                    <option value="">Select your primary crop type</option>
+                    <option value="Wheat">Wheat</option>
+                    <option value="Rice">Rice</option>
+                    <option value="Corn">Corn</option>
+                    <option value="Barley">Barley</option>
+                    <option value="Soybean">Soybean</option>
+                    < option value="Vegetables">Vegetables</option>
+                    <option value="Fruits">Fruits</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+                <input type="checkbox" id="showPassword"> Show Password
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="farmer_login.html">Login here</a></p>
+    </main>
+
+    <footer>
+        <p>Contract Farming Marketplace © 2025 | All Rights Reserved</p>
+    </footer>
+   
+
+</body>
+</html>

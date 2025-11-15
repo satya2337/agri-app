@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace - Contract Farming</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .card img {
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">Contract Farming</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+
+                    <!-- Signup -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="signupDropdown" data-toggle="dropdown">
+                            Sign Up
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="farmer_signup.html">Farmer Sign Up</a>
+                            <a class="dropdown-item" href="buyer_signup.html">Buyer Sign Up</a>
+                        </div>
+                    </li>
+
+                    <!-- Login -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" data-toggle="dropdown">
+                            Login
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="farmer_login.html">Farmer Login</a>
+                            <a class="dropdown-item" href="buyer_login.html">Buyer Login</a>
+                        </div>
+                    </li>
+
+                    <!-- Dashboard (dynamic redirect) -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="dashboardBtn">Dashboard</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="checkout.html">Checkout</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Marketplace Section -->
+    <main>
+        <section class="marketplace py-5">
+            <div class="container">
+                <h1 class="text-center">Available Crops for Purchase</h1>
+
+                <!-- PRODUCT LIST -->
+                <div id="product-list" class="row mt-4"></div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <h5>Get to Know Us</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="about_us.html" class="text-light">About Us</a></li>
+                        <li><a href="Careers.html" class="text-light">Careers</a></li>
+                        <li><a href="#" class="text-light">Press Releases</a></li>
+                        <li><a href="team.html" class="text-light">Our Team</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3">
+                    <h5>Connect with Us</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Facebook</a></li>
+                        <li><a href="#" class="text-light">Twitter</a></li>
+                        <li><a href="#" class="text-light">Instagram</a></li>
+                        <li><a href="#" class="text-light">LinkedIn</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3">
+                    <h5>Make Money with Us</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Sell on Marketplace</a></li>
+                        <li><a href="#" class="text-light">Become an Affiliate</a></li>
+                        <li><a href="#" class="text-light">Advertise Your Products</a></li>
+                        <li><a href="#" class="text-light">Secure Payments</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3">
+                    <h5>Let Us Help You</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Your Account</a></li>
+                        <li><a href="#" class="text-light">Returns Centre</a></li>
+                        <li><a href="#" class="text-light">100% Purchase Protection</a></li>
+                        <li><a href="#" class="text-light">Help</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-3">
+                <p>&copy; 2025 Contract Farming Marketplace | All Rights Reserved</p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- PRODUCT FETCH SCRIPT -->
+    <script>
+        async function loadProducts() {
+            try {
+                const res = await fetch("http://localhost:5000/api/products");
+                const data = await res.json();
+
+                if (!data.success) {
+                    console.log("Backend Error:", data.error);
+                    return;
+                }
+
+                const products = data.products;
+                const container = document.getElementById("product-list");
+                container.innerHTML = "";
+
+                products.forEach(p => {
+                    container.innerHTML += `
+                        <article class="col-md-3">
+                            <figure class="card">
+                                <img src="${p.image_url}" class="card-img-top" alt="${p.title}">
+                                <figcaption class="card-body">
+                                    <h5 class="card-title">${p.title}</h5>
+                                    <p class="card-text">Price: ₹${p.price} per quintal</p>
+
+                                    <label>Quantity (in quintals):</label>
+                                    <input type="number" id="qty-${p.id}" value="1" min="1" class="form-control mb-2">
+
+                                    <button class="btn btn-primary btn-block"
+                                        onclick="addToCart(${p.id})">
+                                        Add to Cart
+                                    </button>
+                                </figcaption>
+                            </figure>
+                        </article>
+                    `;
+                });
+
+            } catch (error) {
+                console.log("Frontend Error:", error);
+            }
+        }
+
+        function addToCart(productId) {
+            const buyer_id = localStorage.getItem("buyer_id");
+
+            if (!buyer_id) {
+                alert("Please login as Buyer first!");
+                return;
+            }
+
+            const qty = document.getElementById(`qty-${productId}`).value;
+
+            fetch("http://localhost:5000/api/cart/add", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    buyer_id,
+                    product_id: productId,
+                    quantity: qty
+                })
+            })
+            .then(res => res.json())
+            .then(data => alert(data.message));
+        }
+
+        window.onload = loadProducts;
+    </script>
+
+    <!-- 🚀 DASHBOARD REDIRECTION SCRIPT -->
+    <script>
+        document.getElementById("dashboardBtn").addEventListener("click", () => {
+            const user = JSON.parse(localStorage.getItem("user"));
+
+            if (!user) {
+                alert("Please login first!");
+                return;
+            }
+
+            if (user.role === "buyer") {
+                window.location.href = "buyer_dashboard.html";
+            } 
+            else if (user.role === "farmer") {
+                window.location.href = "farmer_dashboard.html";
+            } 
+            else {
+                alert("Invalid user role!");
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Contract Farming</title>
+    <link rel="stylesheet" href="css/checkout.css">
+</head>
+
+<body>
+
+    <div class="checkout-container">
+
+        <h1>Your Cart</h1>
+
+        <!-- All cart items will load here -->
+        <div id="cart-items"></div>
+
+        <!-- Total section -->
+        <div class="total-box">
+            <h2>Total: ₹<span id="totalAmount">0</span></h2>
+            <button id="checkoutBtn">Proceed to Payment</button>
+        </div>
+
+    </div>
+
+    <!-- Checkout JS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const buyer_id = localStorage.getItem("buyer_id");
+
+            if (!buyer_id) {
+                alert("Please login first!");
+                window.location.href = "buyer_login.html";
+                return;
+            }
+
+            const cartContainer = document.getElementById("cart-items");
+            const totalAmount = document.getElementById("totalAmount");
+
+            // ===== FETCH CART ITEMS FROM BACKEND =====
+            fetch(`http://localhost:5000/api/cart/${buyer_id}`)
+                .then(res => res.json())
+                .then(cart => {
+
+                    cartContainer.innerHTML = "";
+                    let total = 0;
+
+                    cart.forEach(item => {
+
+                        total += item.price * item.quantity;
+
+                        cartContainer.innerHTML += `
+                            <div class="cart-item">
+                                <h3>${item.title}</h3>
+                                <p>Price: ₹${item.price}</p>
+                                <p>Quantity: ${item.quantity}</p>
+
+                                <button class="removeBtn" onclick="removeItem(${item.id})">
+                                    Remove
+                                </button>
+                            </div>
+                        `;
+                    });
+
+                    totalAmount.textContent = total;
+                })
+                .catch(err => console.log("Error loading cart:", err));
+        });
+
+        // ===== REMOVE ITEM FROM CART =====
+        function removeItem(id) {
+
+            fetch(`http://localhost:5000/api/cart/remove/${id}`, {
+                method: "DELETE"
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert(data.message);
+                location.reload();
+            })
+            .catch(err => console.log("Delete error:", err));
+        }
+    </script>
+
+</body>
+</html>
